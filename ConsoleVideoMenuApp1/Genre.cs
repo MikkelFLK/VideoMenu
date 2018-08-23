@@ -4,10 +4,16 @@ using System.Text;
 
 namespace ConsoleVideoMenuApp1
 {
-    class Genre
+    public class Genre
     {
-        public int Id { get; set; }
-        public string GenreName { get; set; }
+        public string[] genreItems =
+        {
+            "Action",
+            "Horror",
+            "Comedy",
+            "Drama",
+            "Romance"
+        };
 
     }
 }
