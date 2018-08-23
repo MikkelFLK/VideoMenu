@@ -4,11 +4,10 @@ using System.Text;
 
 namespace ConsoleVideoMenuApp1
 {
-    class Video
+    class Genre
     {
         public int Id { get; set; }
-        public String Name { get; set; }
-        public Genre Genre { get; set; }
-    }
+        public string GenreName { get; set; }
 
+    }
 }
