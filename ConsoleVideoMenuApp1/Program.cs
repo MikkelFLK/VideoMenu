@@ -1,17 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace ConsoleVideoMenuApp1
 {
     class Program
     {
-        static string[] genreItems =
-        {
-            "Action",
-            "Horror",
-            "Comedy",
-            "Drama",
-            "Romance"
-        };
+        static List<Video> videos = new List<Video>();
+
         static void Main(string[] args)
         {
             string[] menuItems =
@@ -20,32 +15,26 @@ namespace ConsoleVideoMenuApp1
                 "Add new Video",
                 "Edit existing Video",
                 "Delete a Video",
-                "List Genres",
                 "Exit"
             };
             
             var selection = ShowMenu(menuItems);
 
-            while (selection != 6)
+            while (selection != 5)
             {
                 switch (selection)
                 {
                     case 1:
-                        Console.WriteLine("List Videos");
+                        ListVideos();
                         break;
                     case 2:
-                        Console.WriteLine("Add new Video");
                         NewVideo();
                         break;
                     case 3:
-                        Console.WriteLine("Edit existing Video");
+                        EditVideo();
                         break;
                     case 4:
-                        Console.WriteLine("Delete a Video");
-                        break;
-                    case 5:
-                        Console.WriteLine("List Genres");
-                        ListGenres(genreItems);
+                        DeleteVideo();
                         break;
                     default:
                         break;
@@ -53,25 +42,80 @@ namespace ConsoleVideoMenuApp1
                 selection = ShowMenu(menuItems);
                 Console.Clear();
             }
-            Console.WriteLine("Closing app");
+            Console.WriteLine("\nStay awhile, Stay forever");
             Console.ReadLine();
         }
 
-        private static void ListGenres(string[] genreItems)
+        private static void EditVideo()
         {
-            for (int j = 0; j < genreItems.Length; j++)
+            Console.WriteLine("\nSelect Id of video to edit\n");
+            var video = FindVideoById();
+            Console.WriteLine("Name: " + video.Name);
+            video.Name = Console.ReadLine();
+            Console.WriteLine("Genre: "+ video.Genre);
+            video.Genre = Console.ReadLine();
+        }
+
+        private static Video FindVideoById()
+        {
+            Console.WriteLine("Input video Id");
+            int inputId;
+            while (!int.TryParse(Console.ReadLine(), out inputId))
             {
-                Console.WriteLine((j + 1) + ":" + genreItems[j]);
+                Console.WriteLine("please input a number");
             }
+            foreach (var video in videos)
+            {
+                if (video.Id == inputId)
+                {
+                    return video;
+                }
+            }
+            return null;
+        }
+
+        private static void DeleteVideo()
+        {
+            var videoFound = FindVideoById();
+            if (videoFound != null)
+            {
+                videos.Remove(videoFound);
+            }
+        }
+
+        private static void ListVideos()
+        {
+            Console.WriteLine("\nList of Videos\n");
+            foreach (var video in videos)
+            {
+                Console.WriteLine($"Id: {video.Id} Name: " +
+                                    $"{video.Name} " +
+                                    $"Genre: {video.Genre}");
+            }
+            Console.WriteLine();
         }
 
         private static void NewVideo()
         {
-            Console.WriteLine("Please input Video name");
-            Console.ReadLine();
-            Console.WriteLine("Please select Genere");
-            ListGenres(genreItems);
-            Console.ReadLine();
+            Console.WriteLine("Intput Video id: ");
+            int id;
+            while (!int.TryParse(Console.ReadLine(), out id))
+            {
+                Console.WriteLine("please input an int");
+            }
+            Console.WriteLine("Please input Video name: ");
+            var name = Console.ReadLine();
+
+            Console.WriteLine("Please input genre: ");
+            var genre = Console.ReadLine();
+
+            videos.Add(new Video()
+            {
+                Id = id,
+                Name = name,
+                Genre = genre
+            });
+            
         }
 
         private static int ShowMenu(string[] menuItems)
@@ -84,7 +128,7 @@ namespace ConsoleVideoMenuApp1
                 Console.WriteLine((i + 1) + ":" + menuItems[i]);
             }
             int selection;
-            while (!int.TryParse(Console.ReadLine(), out selection)||selection < 1 || selection > 6)
+            while (!int.TryParse(Console.ReadLine(), out selection)||selection < 1 || selection > 5)
             {
                 Console.WriteLine("Please input a valid command");
             }
