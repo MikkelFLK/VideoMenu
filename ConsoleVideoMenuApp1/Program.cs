@@ -42,7 +42,13 @@ namespace ConsoleVideoMenuApp1
                 selection = ShowMenu(menuItems);
                 Console.Clear();
             }
+            Console.WriteLine("\nPress enter to exit");
+            Console.ReadLine();
             Console.WriteLine("\nStay awhile, Stay forever");
+            Console.ReadLine();
+            Console.WriteLine("\nYou will never leave me");
+            Console.ReadLine();
+            Console.WriteLine("\nPress enter to free the machines");
             Console.ReadLine();
         }
 
@@ -120,8 +126,8 @@ namespace ConsoleVideoMenuApp1
 
         private static int ShowMenu(string[] menuItems)
         {
-            Console.WriteLine("");
-            Console.WriteLine("Select command");
+            Console.WriteLine("\nVideo console app, Brought to you by Lootboxs INC\n");
+            Console.WriteLine("Please select a command");
             Console.WriteLine("-----------------------------\n");
             for (int i = 0; i < menuItems.Length; i++)
             {
@@ -130,7 +136,9 @@ namespace ConsoleVideoMenuApp1
             int selection;
             while (!int.TryParse(Console.ReadLine(), out selection)||selection < 1 || selection > 5)
             {
-                Console.WriteLine("Please input a valid command");
+                Console.WriteLine("\nPlease input a valid command");
+                Console.WriteLine("Paint the man. Cut the lines");
+                Console.WriteLine("Free the machines");
             }
             return selection;
         }
