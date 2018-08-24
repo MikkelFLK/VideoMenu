@@ -82,6 +82,7 @@ namespace ConsoleVideoMenuApp1
 
         private static void DeleteVideo()
         {
+            Console.WriteLine("\nEnter Id of video to delete, it will be dead, just like your hopes and dreams\n");
             var videoFound = FindVideoById();
             if (videoFound != null)
             {
